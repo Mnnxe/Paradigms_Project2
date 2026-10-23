@@ -1,0 +1,21 @@
+# First column in every parameter line = label
+#
+# Label followed by: days of simulation
+days,                       6
+#
+# ClaimGateways
+# Label followed by: number of gateways, batch size per submission
+ClaimGateways_num_batch,    3, 50
+#
+# PaymentGateways
+# Label followed by: number of gateways, daily payment tokens
+PaymentGateways_num_max,    2, 80
+#
+# BrokerThreads
+# Label followed by: number of threads, min daily claims, max daily claims
+BrokerThreads_num_min_max,  3, 20, 100
+#
+# AssessorThreads
+# Label followed by: number of threads, daily capacity
+AssessorThreads_num_max,    3, 80
+
