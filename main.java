@@ -70,8 +70,7 @@ class BrokerThread extends Thread{
         for(int day = 1; day <= total_days; day++){
             try{
                 barrier.await();
-                if(!cont) break;
-
+                
                 NewClaims();
                 barrier.await();
 
