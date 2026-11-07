@@ -1,4 +1,16 @@
+/*
+********** group members *****************
+6813115     Renuka      Choosingkae
+6813238 	Napat       Chonsaktrakul
+6813248 	Pimpichcha  Saengngoen
+6813258 	Sittichok   Boonthittanont
+*/
+package Project2_6813115;
+
+import java.util.*;
 import java.util.ArrayList;
+import java.util.concurrent.*;
+import java.io.*;
 
 public class ClaimGateway {
     private int id;
@@ -58,3 +70,4 @@ public class ClaimGateway {
         return new ArrayList<>(pending_claims);
     }
 }
+
