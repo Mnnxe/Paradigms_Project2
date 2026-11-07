@@ -7,32 +7,19 @@
 */
 package Project2_6813115;
 
-import java.util.*;
-import java.util.ArrayList;
-import java.util.concurrent.*;
-import java.io.*;
-
 public class PaymentGateway {
     private int id;
-    private int numberOfGateways;
     private int dailyPaymentToken;
     private int remaining_tokens;
-    private ArrayList<Integer> payment_history;
 
-    public PaymentGateway(int id, int numberOfGateways, int dailyPaymentToken) {
+    public PaymentGateway(int id, int dailyPaymentToken) {
         this.id = id;
-        this.numberOfGateways = numberOfGateways;
         this.dailyPaymentToken = dailyPaymentToken;
         this.remaining_tokens = dailyPaymentToken;
-        this.payment_history = new ArrayList<>();
     }
 
     public int getId() {
         return id;
-    }
-
-    public int getNumberOfGateways() {
-        return numberOfGateways;
     }
 
     public int getDailyPaymentToken() {
@@ -46,9 +33,6 @@ public class PaymentGateway {
     public synchronized int issuePayments(int requestedPayments) {
         int issued = Math.min(requestedPayments, remaining_tokens);
         remaining_tokens -= issued;
-        if (issued > 0) {
-            payment_history.add(issued);
-        }
         return issued;
     }
 
@@ -56,7 +40,7 @@ public class PaymentGateway {
         this.remaining_tokens = this.dailyPaymentToken;
     }
 
-    public synchronized ArrayList<Integer> getPaymentHistory() {
-        return new ArrayList<>(payment_history);
+    public String toString() {
+        return "PaymentGateway_" + id;
     }
 }
