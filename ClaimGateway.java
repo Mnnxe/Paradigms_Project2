@@ -8,29 +8,21 @@
 package Project2_6813115;
 
 import java.util.*;
-import java.util.ArrayList;
-import java.util.concurrent.*;
-import java.io.*;
 
 public class ClaimGateway {
     private int id;
-    private int numberOfGateways;
     private int batchSize;
-    private ArrayList<Integer> pending_claims;
+    private int pending_claims;
+    private Random rand = new Random();
 
-    public ClaimGateway(int id, int numberOfGateways, int batchSize) {
+    public ClaimGateway(int id, int batchSize) {
         this.id = id;
-        this.numberOfGateways = numberOfGateways;
         this.batchSize = batchSize;
-        this.pending_claims = new ArrayList<>();
+        this.pending_claims = 0;
     }
 
     public int getBatchSize() {
         return batchSize;
-    }
-
-    public int getNumberOfGateways() {
-        return numberOfGateways;
     }
 
     public int getId() {
@@ -38,36 +30,24 @@ public class ClaimGateway {
     }
 
     public synchronized void submit_claims(int claims) {
-        pending_claims.add(claims);
+        pending_claims += claims;
     }
 
     public synchronized int approveClaims(int capacity) {
         int approved = 0;
-        while (!pending_claims.isEmpty() && approved < capacity) {
-            int currentBatch = pending_claims.get(0);
-            if (approved + currentBatch <= capacity) {
-                approved += currentBatch;
-                pending_claims.remove(0);
-            } else {
-                int needed = capacity - approved;
-                approved += needed;
-                pending_claims.set(0, currentBatch - needed);
-                break;
-            }
+        if (pending_claims > 0) {
+            int max = Math.min(capacity, pending_claims);
+            approved = rand.nextInt(max) + 1;
+            pending_claims -= approved;
         }
         return approved;
     }
 
     public synchronized int getPendingClaims() {
-        int total = 0;
-        for (int c : pending_claims) {
-            total += c;
-        }
-        return total;
+        return pending_claims;
     }
 
-    public synchronized ArrayList<Integer> getPendingClaimsList() {
-        return new ArrayList<>(pending_claims);
+    public String toString() {
+        return "ClaimGateway_" + id;
     }
 }
-
